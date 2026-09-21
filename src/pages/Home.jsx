@@ -113,7 +113,7 @@ export default function Home() {
 
           <Reveal delay={120} className="split__media">
             <Media
-              src="public/HomePic.png"
+              src="/HomePic.png"
               alt="فرسان في ميدان المركز"
               ratio="4-3"
               glyph="🏇"
