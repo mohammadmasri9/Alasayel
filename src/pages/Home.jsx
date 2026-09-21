@@ -56,7 +56,7 @@ export default function Home() {
           <Reveal delay={200} className="hero__visual">
             <span className="hero__ring" aria-hidden="true" />
             <Media
-              src="public/images/PortraitLogoPresenting.png"
+              src="/PortraitLogoPresenting.png"
               alt="خيل عربي أصيل في ميدان مركز الأصايل"
               ratio="4-5"
               glyph="🐎"
@@ -113,7 +113,7 @@ export default function Home() {
 
           <Reveal delay={120} className="split__media">
             <Media
-              src="public/images/HomePic.png"
+              src="public/HomePic.png"
               alt="فرسان في ميدان المركز"
               ratio="4-3"
               glyph="🏇"

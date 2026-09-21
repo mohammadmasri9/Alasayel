@@ -37,7 +37,7 @@ export default function Navbar() {
       <header className={`navbar ${scrolled ? 'is-scrolled' : ''}`}>
         <div className="container navbar__inner">
           <Link to="/" className="brand" aria-label={site.name}>
-            <img className="brand__logo" src="/public/images/logo.png" alt="" />
+            <img className="brand__logo" src="/logo.png" alt="" />
             <span className="brand__text">
               <span className="brand__name">{site.name}</span>
               <span className="brand__sub">{site.nameEn}</span>
