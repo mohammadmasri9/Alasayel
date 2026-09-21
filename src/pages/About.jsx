@@ -34,7 +34,7 @@ export default function About() {
 
           <Reveal delay={120} className="split__media">
             <Media
-              src="/public/PresentingLogo2.png"
+              src="public/PresentingLogo2.png"
               alt="مدخل مركز الأصايل للفروسية"
               ratio="4-3"
               glyph="🏛️"
