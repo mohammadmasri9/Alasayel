@@ -34,7 +34,7 @@ export default function About() {
 
           <Reveal delay={120} className="split__media">
             <Media
-              src="/images/about-1.jpg"
+              src="/public/PresentingLogo2.png"
               alt="مدخل مركز الأصايل للفروسية"
               ratio="4-3"
               glyph="🏛️"
@@ -127,7 +127,7 @@ export default function About() {
 
           <Reveal delay={120} className="split__media">
             <Media
-              src="/images/facilities.jpg"
+              src="/public/SwimerHourse.png"
               alt="مرافق المركز"
               ratio="4-3"
               glyph="🏇"
@@ -154,7 +154,7 @@ export default function About() {
 
           <Reveal delay={120} className="split__media">
             <Media
-              src="/images/jericho.jpg"
+              src="/public/Center.png"
               alt="ميدان المركز في أريحا"
               ratio="3-2"
               glyph="🌴"
