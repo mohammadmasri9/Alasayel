@@ -59,7 +59,7 @@ export default function Championships() {
 
           <Reveal delay={120} className="split__media">
             <Media
-              src="/public/Race.png"
+              src="/public/images/Race.png"
               alt="منافسة قفز حواجز في المركز"
               ratio="4-3"
               glyph="🏆"

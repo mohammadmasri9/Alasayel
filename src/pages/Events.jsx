@@ -62,7 +62,7 @@ export default function Events() {
 
           <Reveal delay={120} className="split__media">
             <Media
-              src="/public/Children.png"
+              src="/public/images/Children.png"
               alt="مخيم صيفي للأطفال في المركز"
               ratio="4-3"
               glyph="🏕️"

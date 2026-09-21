@@ -127,7 +127,7 @@ export default function About() {
 
           <Reveal delay={120} className="split__media">
             <Media
-              src="/public/SwimerHourse.png"
+              src="/public/images/SwimerHourse.png"
               alt="مرافق المركز"
               ratio="4-3"
               glyph="🏇"
@@ -154,7 +154,7 @@ export default function About() {
 
           <Reveal delay={120} className="split__media">
             <Media
-              src="/public/Center.png"
+              src="/public/images/Center.png"
               alt="ميدان المركز في أريحا"
               ratio="3-2"
               glyph="🌴"

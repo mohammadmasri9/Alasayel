@@ -31,7 +31,7 @@ export default function Training() {
 
           <Reveal delay={120} className="split__media">
             <Media
-              src="/public/LandscabeTraining.png"
+              src="/public/images/LandscabeTraining.png"
               alt="جلسة تدريب في ميدان المركز"
               ratio="4-3"
               glyph="🐎"
