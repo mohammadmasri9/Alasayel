@@ -1,9 +1,10 @@
-import { startTransition, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import ErrorMessage from '../components/ErrorMessage'
 import FormField from '../components/FormField'
 import PageHead from '../components/PageHead'
 import { useAuth } from '../hooks/useAuth'
+import { useLogout } from '../hooks/useLogout'
 
 function Card({ title, children }) {
   return (
@@ -117,17 +118,8 @@ function PasswordForm() {
 }
 
 export default function Profile() {
-  const { user, isAdmin, logout } = useAuth()
-  const navigate = useNavigate()
-
-  // Both updates in one transition, so this protected page never renders
-  // with a logged-out user (which would redirect to /login instead of home).
-  function handleLogout() {
-    startTransition(() => {
-      navigate('/', { replace: true })
-      logout()
-    })
-  }
+  const { user, isAdmin } = useAuth()
+  const handleLogout = useLogout()
 
   return (
     <>

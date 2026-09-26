@@ -2,10 +2,13 @@ import { useEffect, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { nav } from '../data/site'
 import { useAuth } from '../hooks/useAuth'
+import { useLogout } from '../hooks/useLogout'
 import { useSettings } from '../hooks/useSettings'
+import { LogoutIcon } from './Icons'
 
 export default function Navbar() {
   const { user, isAdmin } = useAuth()
+  const logout = useLogout()
   const { settings } = useSettings()
   const account = user
     ? { to: isAdmin ? '/admin' : '/profile', label: isAdmin ? 'لوحة التحكم' : 'حسابي' }
@@ -55,9 +58,22 @@ export default function Navbar() {
             {links}
           </nav>
 
-          <Link className="btn btn--ghost btn--sm nav-cta" to={account.to}>
-            {account.label}
-          </Link>
+          <div className="nav-account nav-cta">
+            <Link className="btn btn--ghost btn--sm" to={account.to}>
+              {account.label}
+            </Link>
+            {user && (
+              <button
+                type="button"
+                className="btn btn--ghost btn--sm px-3!"
+                onClick={logout}
+                aria-label="تسجيل الخروج"
+                title="تسجيل الخروج"
+              >
+                <LogoutIcon />
+              </button>
+            )}
+          </div>
 
           <a
             className="btn btn--gold btn--sm nav-cta"
@@ -90,6 +106,11 @@ export default function Navbar() {
         <Link className="btn btn--ghost" to={account.to}>
           {account.label}
         </Link>
+        {user && (
+          <button type="button" className="btn btn--ghost" onClick={logout}>
+            <LogoutIcon /> تسجيل الخروج
+          </button>
+        )}
         <a
           className="btn btn--gold"
           href={settings.whatsappUrl || '/contact'}
