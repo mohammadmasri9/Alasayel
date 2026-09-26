@@ -77,7 +77,8 @@
 
 .nav-link {
   position: relative;
-  padding: 0.5rem 0.95rem;
+  padding: 0.5rem 0.8rem;
+  white-space: nowrap;
   border-radius: 99px;
   font-size: 0.95rem;
   font-weight: 500;
@@ -194,7 +195,7 @@
   align-self: flex-start;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1240px) {
   .nav-links,
   .nav-cta {
     display: none;

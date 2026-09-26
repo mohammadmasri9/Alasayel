@@ -2,7 +2,8 @@ import CtaBand from '../components/CtaBand'
 import Media from '../components/Media'
 import PageHead from '../components/PageHead'
 import Reveal from '../components/Reveal'
-import { championships, upcoming } from '../data/site'
+import UpcomingEvents from '../components/UpcomingEvents'
+import { championships } from '../data/site'
 
 export default function Championships() {
   return (
@@ -81,25 +82,7 @@ export default function Championships() {
             </p>
           </Reveal>
 
-          <div className="grid grid-2">
-            {upcoming.map((ev, i) => (
-              <Reveal key={ev.title} delay={i * 70}>
-                <article className="event-card">
-                  <div className="event-card__date">
-                    <span className="big">{ev.date}</span>
-                    <span className="tag">{ev.tag}</span>
-                  </div>
-                  <div className="event-card__body">
-                    <h3 className="event-card__title">{ev.title}</h3>
-                    <p className="event-card__meta">
-                      <span>📍 {ev.place}</span>
-                    </p>
-                    <p className="event-card__text">{ev.text}</p>
-                  </div>
-                </article>
-              </Reveal>
-            ))}
-          </div>
+          <UpcomingEvents limit={6} />
         </div>
       </section>
 

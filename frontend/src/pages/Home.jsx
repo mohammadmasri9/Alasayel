@@ -2,9 +2,14 @@ import { Link } from 'react-router-dom'
 import CtaBand from '../components/CtaBand'
 import Media from '../components/Media'
 import Reveal from '../components/Reveal'
-import { offerings, site, stats, upcoming } from '../data/site'
+import UpcomingEvents from '../components/UpcomingEvents'
+import { offerings, stats } from '../data/site'
+import { useSettings } from '../hooks/useSettings'
 
+// Hero and "about" texts/images come from Website Settings (admin).
 export default function Home() {
+  const { settings: site } = useSettings()
+
   return (
     <>
       {/* القسم الرئيسي */}
@@ -12,38 +17,40 @@ export default function Home() {
         <div className="hero__bg" />
         <div className="container hero__inner">
           <div className="hero__content">
-            <Reveal>
-              <span className="hero__badge">
-                <span className="dot" />
-                {site.city}
-              </span>
-            </Reveal>
+            {site.heroBadge && (
+              <Reveal>
+                <span className="hero__badge">
+                  <span className="dot" />
+                  {site.heroBadge}
+                </span>
+              </Reveal>
+            )}
 
             <Reveal delay={80}>
               <h1 className="hero__title">
-                مركز الأصايل
-                <span className="gold">للفروسية</span>
+                {site.heroTitle}
+                {site.heroTitleHighlight && <span className="gold">{site.heroTitleHighlight}</span>}
               </h1>
             </Reveal>
 
-            <Reveal delay={160}>
-              <p className="hero__tagline">{site.tagline}</p>
-            </Reveal>
+            {site.tagline && (
+              <Reveal delay={160}>
+                <p className="hero__tagline">{site.tagline}</p>
+              </Reveal>
+            )}
 
-            <Reveal delay={220}>
-              <p className="hero__text">
-                وجهة متخصصة لرياضة الفروسية تجمع بين شغف الخيل، التدريب، المنافسة،
-                والفعاليات الرياضية، في بيئة تهدف إلى تطوير الفارس والارتقاء بمستوى
-                الفروسية.
-              </p>
-            </Reveal>
+            {site.heroDescription && (
+              <Reveal delay={220}>
+                <p className="hero__text">{site.heroDescription}</p>
+              </Reveal>
+            )}
 
             <Reveal delay={280}>
               <div className="btn-row">
                 <Link className="btn btn--gold" to="/about">
                   تعرف على النادي
                 </Link>
-                <Link className="btn btn--ghost" to="/championships">
+                <Link className="btn btn--ghost" to="/events">
                   البطولات والفعاليات
                 </Link>
                 <Link className="btn btn--ghost" to="/contact">
@@ -56,8 +63,8 @@ export default function Home() {
           <Reveal delay={200} className="hero__visual">
             <span className="hero__ring" aria-hidden="true" />
             <Media
-              src="/PortraitLogoPresenting.png"
-              alt="خيل عربي أصيل في ميدان مركز الأصايل"
+              src={site.heroImage.url}
+              alt={`${site.heroTitle} ${site.heroTitleHighlight || ''}`.trim()}
               ratio="4-5"
               glyph="🐎"
               label="ضع صورة الخيل هنا"
@@ -93,17 +100,13 @@ export default function Home() {
           <Reveal className="split__text">
             <p className="eyebrow">عن المركز</p>
             <h2 className="section-title">
-              الأصايل… أكثر من مجرد <span className="accent">مركز للفروسية</span>
+              {site.aboutTitle} {site.aboutTitleHighlight && <span className="accent">{site.aboutTitleHighlight}</span>}
             </h2>
-            <p className="section-lead">
-              نحن نؤمن بأن الفروسية ليست مجرد رياضة، بل هي علاقة تجمع الإنسان بالخيل،
-              وتعلّم الفارس الانضباط، التركيز، المسؤولية، والثقة.
-            </p>
-            <p className="section-lead" style={{ marginBlockStart: '1rem' }}>
-              ومن هنا، نسعى إلى بناء مجتمع فروسية حقيقي يجمع الفرسان والمدربين ومربي
-              الخيل ومحبي هذه الرياضة، ويمنح المواهب الشابة فرصة للتعلم والتطور والوصول
-              إلى المنافسات المحلية والدولية.
-            </p>
+            {site.aboutParagraphs.map((text, i) => (
+              <p key={i} className="section-lead" style={i > 0 ? { marginBlockStart: '1rem' } : undefined}>
+                {text}
+              </p>
+            ))}
             <div className="btn-row" style={{ marginBlockStart: '2rem' }}>
               <Link className="btn btn--gold" to="/about">
                 المزيد عن النادي
@@ -113,8 +116,8 @@ export default function Home() {
 
           <Reveal delay={120} className="split__media">
             <Media
-              src="/HomePic.png"
-              alt="فرسان في ميدان المركز"
+              src={site.aboutImage.url}
+              alt={site.aboutTitleHighlight || site.aboutTitle}
               ratio="4-3"
               glyph="🏇"
               label="صورة من الميدان"
@@ -166,30 +169,12 @@ export default function Home() {
             </p>
           </Reveal>
 
-          <div className="grid grid-3">
-            {upcoming.map((ev, i) => (
-              <Reveal key={ev.title} delay={i * 80}>
-                <article className="event-card">
-                  <div className="event-card__date">
-                    <span className="big">{ev.date}</span>
-                    <span className="tag">{ev.tag}</span>
-                  </div>
-                  <div className="event-card__body">
-                    <h3 className="event-card__title">{ev.title}</h3>
-                    <p className="event-card__meta">
-                      <span>📍 {ev.place}</span>
-                    </p>
-                    <p className="event-card__text">{ev.text}</p>
-                  </div>
-                </article>
-              </Reveal>
-            ))}
-          </div>
+          <UpcomingEvents limit={3} />
 
           <Reveal>
             <div className="btn-row" style={{ justifyContent: 'center', marginBlockStart: '2.5rem' }}>
               <Link className="btn btn--ghost" to="/championships">
-                كل البطولات والمسابقات
+                كل الفعاليات والبطولات
               </Link>
             </div>
           </Reveal>

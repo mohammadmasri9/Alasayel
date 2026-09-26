@@ -1,0 +1,37 @@
+# Render Blueprint for the backend API. In Render: New → Blueprint →
+# pick this repository. Values marked `sync: false` are asked for on
+# creation (see DEPLOYMENT.md). JWT_SECRET is generated automatically.
+services:
+  - type: web
+    name: alasayel-api
+    runtime: node
+    rootDir: backend
+    # Frankfurt is the closest Render region to Palestine. Pick the same
+    # (or nearest) region for the MongoDB Atlas cluster.
+    region: frankfurt
+    plan: free # sleeps after 15 min idle; use "starter" for no cold starts
+    buildCommand: npm ci --omit=dev
+    startCommand: node server.js
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NODE_VERSION
+        value: "22"
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: MONGODB_URI
+        sync: false
+      - key: CLIENT_URL
+        sync: false
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: false
+      - key: CLOUDINARY_API_KEY
+        sync: false
+      - key: CLOUDINARY_API_SECRET
+        sync: false
+      - key: CLOUDINARY_FOLDER
+        value: alasayel

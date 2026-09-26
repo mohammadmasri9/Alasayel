@@ -1,53 +1,25 @@
 import { Link } from 'react-router-dom'
-import { mapsDirections, nav, site } from '../data/site'
-import { FacebookIcon, InstagramIcon, TiktokIcon } from './Icons'
+import { nav } from '../data/site'
+import { useSettings } from '../hooks/useSettings'
+import SocialLinks from './SocialLinks'
 
 export default function Footer() {
+  const { settings: s } = useSettings()
+
   return (
     <footer className="footer">
       <div className="container">
         <div className="footer__grid">
           <div className="footer__brand">
             <Link to="/" className="brand">
-              <img className="brand__logo" src="/logo.png" alt="" />
+              <img className="brand__logo" src={s.logo.url} alt="" />
               <span className="brand__text">
-                <span className="brand__name">{site.name}</span>
-                <span className="brand__sub">{site.nameEn}</span>
+                <span className="brand__name">{s.siteName}</span>
+                {s.siteNameEn && <span className="brand__sub">{s.siteNameEn}</span>}
               </span>
             </Link>
-            <p className="footer__about">
-              وجهة متخصصة لرياضة الفروسية في قلب مدينة أريحا، تجمع بين شغف الخيل،
-              التدريب، المنافسة، والفعاليات الرياضية.
-            </p>
-            <div className="socials">
-              <a
-                className="social-btn"
-                href={site.social.facebook}
-                target="_blank"
-                rel="noreferrer"
-                aria-label="فيسبوك"
-              >
-                <FacebookIcon />
-              </a>
-              <a
-                className="social-btn"
-                href={site.social.instagram}
-                target="_blank"
-                rel="noreferrer"
-                aria-label="إنستغرام"
-              >
-                <InstagramIcon />
-              </a>
-              <a
-                className="social-btn"
-                href={site.social.tiktok}
-                target="_blank"
-                rel="noreferrer"
-                aria-label="تيك توك"
-              >
-                <TiktokIcon />
-              </a>
-            </div>
+            {s.footerAbout && <p className="footer__about">{s.footerAbout}</p>}
+            <SocialLinks />
           </div>
 
           <div>
@@ -64,37 +36,45 @@ export default function Footer() {
           <div>
             <h3 className="footer__title">تواصل معنا</h3>
             <ul className="footer__list">
-              <li>
-                <a href={`tel:${site.phone}`}>
-                  <span aria-hidden="true">📞</span>
-                  <span dir="ltr">{site.phoneDisplay}</span>
-                </a>
-              </li>
-              <li>
-                <a href={site.whatsapp} target="_blank" rel="noreferrer">
-                  <span aria-hidden="true">💬</span> واتساب
-                </a>
-              </li>
-              <li>
-                <a href={`mailto:${site.email}`}>
-                  <span aria-hidden="true">✉️</span>
-                  <span dir="ltr">{site.email}</span>
-                </a>
-              </li>
-              <li>
-                <a href={mapsDirections} target="_blank" rel="noreferrer">
-                  <span aria-hidden="true">📍</span> {site.city}
-                </a>
-              </li>
+              {s.phoneHref && (
+                <li>
+                  <a href={s.phoneHref}>
+                    <span aria-hidden="true">📞</span>
+                    <span dir="ltr">{s.contactPhone}</span>
+                  </a>
+                </li>
+              )}
+              {s.whatsappUrl && (
+                <li>
+                  <a href={s.whatsappUrl} target="_blank" rel="noreferrer">
+                    <span aria-hidden="true">💬</span> واتساب
+                  </a>
+                </li>
+              )}
+              {s.contactEmail && (
+                <li>
+                  <a href={`mailto:${s.contactEmail}`}>
+                    <span aria-hidden="true">✉️</span>
+                    <span dir="ltr">{s.contactEmail}</span>
+                  </a>
+                </li>
+              )}
+              {s.address && (
+                <li>
+                  <a href={s.mapLinkUrl || undefined} target="_blank" rel="noreferrer">
+                    <span aria-hidden="true">📍</span> {s.address}
+                  </a>
+                </li>
+              )}
             </ul>
           </div>
         </div>
 
         <div className="footer__bottom">
           <span>
-            © {new Date().getFullYear()} {site.name} — جميع الحقوق محفوظة
+            © {new Date().getFullYear()} {s.siteName} — جميع الحقوق محفوظة
           </span>
-          <span className="footer__slogan">{site.slogan}</span>
+          {s.slogan && <span className="footer__slogan">{s.slogan}</span>}
         </div>
       </div>
     </footer>

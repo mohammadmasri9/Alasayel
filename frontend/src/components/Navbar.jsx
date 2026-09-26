@@ -1,8 +1,15 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
-import { nav, site } from '../data/site'
+import { nav } from '../data/site'
+import { useAuth } from '../hooks/useAuth'
+import { useSettings } from '../hooks/useSettings'
 
 export default function Navbar() {
+  const { user, isAdmin } = useAuth()
+  const { settings } = useSettings()
+  const account = user
+    ? { to: isAdmin ? '/admin' : '/profile', label: isAdmin ? 'لوحة التحكم' : 'حسابي' }
+    : { to: '/login', label: 'دخول' }
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
 
@@ -36,11 +43,11 @@ export default function Navbar() {
     <>
       <header className={`navbar ${scrolled ? 'is-scrolled' : ''}`}>
         <div className="container navbar__inner">
-          <Link to="/" className="brand" aria-label={site.name}>
-            <img className="brand__logo" src="/logo.png" alt="" />
+          <Link to="/" className="brand" aria-label={settings.siteName}>
+            <img className="brand__logo" src={settings.logo.url} alt="" />
             <span className="brand__text">
-              <span className="brand__name">{site.name}</span>
-              <span className="brand__sub">{site.nameEn}</span>
+              <span className="brand__name">{settings.siteName}</span>
+              {settings.siteNameEn && <span className="brand__sub">{settings.siteNameEn}</span>}
             </span>
           </Link>
 
@@ -48,9 +55,13 @@ export default function Navbar() {
             {links}
           </nav>
 
+          <Link className="btn btn--ghost btn--sm nav-cta" to={account.to}>
+            {account.label}
+          </Link>
+
           <a
             className="btn btn--gold btn--sm nav-cta"
-            href={site.whatsapp}
+            href={settings.whatsappUrl || '/contact'}
             target="_blank"
             rel="noreferrer"
           >
@@ -76,9 +87,12 @@ export default function Navbar() {
         onClick={() => setOpen(false)}
       >
         {links}
+        <Link className="btn btn--ghost" to={account.to}>
+          {account.label}
+        </Link>
         <a
           className="btn btn--gold"
-          href={site.whatsapp}
+          href={settings.whatsappUrl || '/contact'}
           target="_blank"
           rel="noreferrer"
         >

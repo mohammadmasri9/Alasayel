@@ -1,41 +1,57 @@
-// كل محتوى الموقع في مكان واحد — عدّل هنا ليتغيّر في كل الصفحات
+// محتوى الأقسام الثابتة في الموقع.
+//
+// الشعار، النصوص الرئيسية، الصور، ومعلومات التواصل تُدار الآن من
+// «لوحة التحكم ← إعدادات الموقع» (Website Settings) ولا تُعدَّل هنا.
 
-export const site = {
-  name: 'مركز الأصايل للفروسية',
-  nameEn: 'Al-Asayel Equestrian Center',
+// Used ONLY if the settings API can't be reached, so the site still shows
+// sensible content. Same shape as GET /api/settings; keep in sync with
+// backend/config/defaultSettings.js.
+export const fallbackSettings = {
+  siteName: 'مركز الأصايل للفروسية',
+  siteNameEn: 'Al-Asayel Equestrian Center',
   tagline: 'شغفٌ بالخيل… أصالةٌ تُصنع في الميدان',
   slogan: 'أصالةٌ في الخيل… شغفٌ في الميدان… وطموحٌ نحو المستقبل.',
-  city: 'أريحا — فلسطين',
-  phone: '+970598895481',
-  phoneDisplay: '+970 598 895 481',
-  email: 'alasayelequestriancenter@gmail.com',
-  whatsapp: 'https://wa.me/970598895481',
-  mapsQuery: 'مركز الأصايل للفروسية أريحا',
-  social: {
-    facebook: 'https://www.facebook.com/share/1CYvBCerpK/?mibextid=wwXIfr',
-    instagram: 'https://www.instagram.com/alasayel.ec',
-    tiktok: 'https://www.tiktok.com/@alasayel_equestrian_',
-  },
-  hours: [
+  footerAbout:
+    'وجهة متخصصة لرياضة الفروسية في قلب مدينة أريحا، تجمع بين شغف الخيل، التدريب، المنافسة، والفعاليات الرياضية.',
+  logo: { url: '/logo.png', isDefault: true },
+  heroBadge: 'أريحا — فلسطين',
+  heroTitle: 'مركز الأصايل',
+  heroTitleHighlight: 'للفروسية',
+  heroDescription:
+    'وجهة متخصصة لرياضة الفروسية تجمع بين شغف الخيل، التدريب، المنافسة، والفعاليات الرياضية، في بيئة تهدف إلى تطوير الفارس والارتقاء بمستوى الفروسية.',
+  heroImage: { url: '/PortraitLogoPresenting.png', isDefault: true },
+  aboutTitle: 'الأصايل… أكثر من مجرد',
+  aboutTitleHighlight: 'مركز للفروسية',
+  aboutDescription:
+    'نحن نؤمن بأن الفروسية ليست مجرد رياضة، بل هي علاقة تجمع الإنسان بالخيل، وتعلّم الفارس الانضباط، التركيز، المسؤولية، والثقة.\n\nومن هنا، نسعى إلى بناء مجتمع فروسية حقيقي يجمع الفرسان والمدربين ومربي الخيل ومحبي هذه الرياضة، ويمنح المواهب الشابة فرصة للتعلم والتطور والوصول إلى المنافسات المحلية والدولية.',
+  aboutImage: { url: '/HomePic.png', isDefault: true },
+  eventBanner: { url: null, isDefault: true },
+  contactPhone: '+970 598 895 481',
+  whatsappNumber: '+970 598 895 481',
+  contactEmail: 'alasayelequestriancenter@gmail.com',
+  address: 'أريحا — فلسطين',
+  openingHours: [
     { day: 'السبت — الخميس', time: '8:00 صباحًا — 7:00 مساءً' },
     { day: 'الجمعة', time: '2:00 ظهرًا — 7:00 مساءً' },
   ],
+  mapEmbedUrl:
+    'https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d847.3344304601623!2d35.47212753928004!3d31.84302404046551!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2s!4v1789972156732!5m2!1sen!2s',
+  mapLinkUrl:
+    'https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent('مركز الأصايل للفروسية أريحا'),
+  socialLinks: {
+    facebook: 'https://www.facebook.com/share/1CYvBCerpK/?mibextid=wwXIfr',
+    instagram: 'https://www.instagram.com/alasayel.ec',
+    youtube: '',
+    tiktok: 'https://www.tiktok.com/@alasayel_equestrian_',
+  },
 }
-
-export const mapsDirections =
-  'https://www.google.com/maps/dir/?api=1&destination=' +
-  encodeURIComponent(site.mapsQuery)
-
-export const mapsEmbed =
-  'https://www.google.com/maps?q=' +
-  encodeURIComponent(site.mapsQuery) +
-  '&output=embed'
 
 export const nav = [
   { to: '/', label: 'الرئيسية' },
   { to: '/about', label: 'عن النادي' },
   { to: '/training', label: 'تدريب الخيل' },
   { to: '/championships', label: 'البطولات' },
+  { to: '/horses', label: 'سوق الخيول' },
   { to: '/events', label: 'الفعاليات' },
   { to: '/contact', label: 'تواصل معنا' },
 ]
@@ -195,30 +211,6 @@ export const championships = [
     icon: '🌍',
     title: 'البطولات المحلية والدولية',
     text: 'استضافة منافسات دولية لقفز الحواجز بإشراف الاتحاد الدولي للفروسية، إلى جانب البطولات المحلية.',
-  },
-]
-
-export const upcoming = [
-  {
-    title: 'بطولة الأصايل لقفز الحواجز',
-    date: 'قريبًا',
-    place: 'ميدان المركز — أريحا',
-    tag: 'قفز حواجز',
-    text: 'منافسات قفز حواجز لعدة فئات، بمشاركة فرسان من مختلف المناطق.',
-  },
-  {
-    title: 'سباق الخيول العربية الأصيلة',
-    date: 'قريبًا',
-    place: 'مضمار المركز — أريحا',
-    tag: 'سرعة',
-    text: 'سباق سرعة للخيول العربية الأصيلة يحتفي بأصالة الخيل وقدراته.',
-  },
-  {
-    title: 'مسابقة جمال الخيل العربي',
-    date: 'قريبًا',
-    place: 'حلبة العرض — أريحا',
-    tag: 'جمال الخيل',
-    text: 'عرض وتحكيم لجمال الخيل العربي الأصيل ضمن أجواء احتفالية.',
   },
 ]
 

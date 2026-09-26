@@ -1,9 +1,11 @@
 import PageHead from '../components/PageHead'
 import Reveal from '../components/Reveal'
-import { FacebookIcon, InstagramIcon, TiktokIcon } from '../components/Icons'
-import { mapsDirections, mapsEmbed, site } from '../data/site'
+import SocialLinks from '../components/SocialLinks'
+import { useSettings } from '../hooks/useSettings'
 
 export default function Contact() {
+  const { settings: site } = useSettings()
+
   return (
     <>
       <PageHead
@@ -16,19 +18,19 @@ export default function Contact() {
         <div className="container">
           <div className="contact-grid">
             <Reveal>
-              <a className="contact-card" href={`tel:${site.phone}`}>
+              <a className="contact-card" href={site.phoneHref}>
                 <span className="contact-card__icon" aria-hidden="true">
                   📞
                 </span>
                 <span className="contact-card__label">الهاتف</span>
-                <span className="contact-card__value">{site.phoneDisplay}</span>
+                <span className="contact-card__value">{site.contactPhone}</span>
               </a>
             </Reveal>
 
             <Reveal delay={70}>
               <a
                 className="contact-card"
-                href={site.whatsapp}
+                href={site.whatsappUrl}
                 target="_blank"
                 rel="noreferrer"
               >
@@ -36,24 +38,24 @@ export default function Contact() {
                   💬
                 </span>
                 <span className="contact-card__label">واتساب</span>
-                <span className="contact-card__value">{site.phoneDisplay}</span>
+                <span className="contact-card__value">{site.contactPhone}</span>
               </a>
             </Reveal>
 
             <Reveal delay={140}>
-              <a className="contact-card" href={`mailto:${site.email}`}>
+              <a className="contact-card" href={`mailto:${site.contactEmail}`}>
                 <span className="contact-card__icon" aria-hidden="true">
                   ✉️
                 </span>
                 <span className="contact-card__label">البريد الإلكتروني</span>
-                <span className="contact-card__value">{site.email}</span>
+                <span className="contact-card__value">{site.contactEmail}</span>
               </a>
             </Reveal>
 
             <Reveal delay={210}>
               <a
                 className="contact-card"
-                href={mapsDirections}
+                href={site.mapLinkUrl}
                 target="_blank"
                 rel="noreferrer"
               >
@@ -62,7 +64,7 @@ export default function Contact() {
                 </span>
                 <span className="contact-card__label">الموقع</span>
                 <span className="contact-card__value contact-card__value--rtl">
-                  {site.city}
+                  {site.address}
                 </span>
               </a>
             </Reveal>
@@ -79,7 +81,7 @@ export default function Contact() {
               مواعيد <span className="accent">الزيارة</span>
             </h2>
             <ul className="hours-list" style={{ marginBlockStart: '1.5rem' }}>
-              {site.hours.map((h) => (
+              {site.openingHours.map((h) => (
                 <li key={h.day}>
                   <strong>{h.day}</strong>
                   <span>{h.time}</span>
@@ -99,35 +101,7 @@ export default function Contact() {
                 تابع صفحاتنا لمعرفة آخر أخبار المركز ومواعيد البطولات والفعاليات
                 والصور من الميدان.
               </p>
-              <div className="socials">
-                <a
-                  className="social-btn"
-                  href={site.social.facebook}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="فيسبوك"
-                >
-                  <FacebookIcon />
-                </a>
-                <a
-                  className="social-btn"
-                  href={site.social.instagram}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="إنستغرام"
-                >
-                  <InstagramIcon />
-                </a>
-                <a
-                  className="social-btn"
-                  href={site.social.tiktok}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="تيك توك"
-                >
-                  <TiktokIcon />
-                </a>
-              </div>
+              <SocialLinks />
             </div>
           </Reveal>
         </div>
@@ -141,17 +115,17 @@ export default function Contact() {
             <h2 className="section-title">
               موقع <span className="accent">المركز</span>
             </h2>
-            <p className="section-lead">{site.city}</p>
+            <p className="section-lead">{site.address}</p>
           </Reveal>
 
 <Reveal>
   <div className="map-frame">
     <iframe
-      src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d847.3344304601623!2d35.47212753928004!3d31.84302404046551!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2s!4v1789972156732!5m2!1sen!2s"
+      src={site.mapEmbedUrl}
       title="موقع مركز الأصايل للفروسية على الخريطة"
       width="600"
       height="450"
-      style={{ border: "0" }}
+      style={{ border: '0' }}
       loading="lazy"
       referrerPolicy="strict-origin-when-cross-origin"
       allowFullScreen
@@ -167,7 +141,7 @@ export default function Contact() {
             >
               <a
                 className="btn btn--gold"
-                href={mapsDirections}
+                href={site.mapLinkUrl}
                 target="_blank"
                 rel="noreferrer"
               >
@@ -175,7 +149,7 @@ export default function Contact() {
               </a>
               <a
                 className="btn btn--ghost"
-                href={site.whatsapp}
+                href={site.whatsappUrl}
                 target="_blank"
                 rel="noreferrer"
               >

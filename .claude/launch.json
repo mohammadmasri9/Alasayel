@@ -4,9 +4,43 @@
     {
       "name": "alasayel",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev"],
+      "runtimeArgs": [
+        "run",
+        "dev",
+        "--prefix",
+        "frontend"
+      ],
       "port": 5173,
       "autoPort": true
+    },
+    {
+      "name": "alasayel-api",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "dev",
+        "--prefix",
+        "backend"
+      ],
+      "port": 5000
+    },
+    {
+      "name": "alasayel-prod-preview",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "preview",
+        "--prefix",
+        "frontend",
+        "--",
+        "--port",
+        "4173",
+        "--strictPort"
+      ],
+      "port": 4173,
+      "env": {
+        "API_PROXY_TARGET": "http://localhost:5001"
+      }
     }
   ]
 }

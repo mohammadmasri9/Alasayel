@@ -1,0 +1,47 @@
+/*
+  Tailwind is loaded WITHOUT its preflight reset so it doesn't change the
+  existing hand-written styles. Utilities are imported unlayered and after
+  the site CSS, so a utility class always wins over element selectors
+  like `h1 { margin: 0 }`.
+*/
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/utilities.css';
+
+/* The site already has its own `.container` (index.css). Stop Tailwind
+   from generating its container utility, which would override it. */
+@source not inline('container');
+
+/* Site palette as Tailwind colors: bg-green-900, text-gold, border-line... */
+@theme {
+  --color-green-950: #071410;
+  --color-green-900: #0a1a12;
+  --color-green-850: #0d2117;
+  --color-green-800: #102a1c;
+  --color-green-700: #153823;
+  --color-green-600: #1c4a2e;
+  --color-gold: #c9a227;
+  --color-gold-400: #d4af37;
+  --color-gold-300: #e2c569;
+  --color-gold-soft: #e8ce8b;
+  --color-cream: #f6f2e9;
+  --color-line: rgba(232, 206, 139, 0.16);
+  --color-line-strong: rgba(232, 206, 139, 0.34);
+  --color-muted: rgba(240, 236, 226, 0.68);
+  --color-dim: rgba(240, 236, 226, 0.45);
+
+  --font-sans: 'Tajawal', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Amiri', 'Tajawal', serif;
+}
+
+/* Printing a ticket: only the page content, on white paper. */
+@media print {
+  .navbar,
+  .mobile-menu,
+  .footer,
+  .fab {
+    display: none !important;
+  }
+  body {
+    background: #fff;
+  }
+}

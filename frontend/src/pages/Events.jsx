@@ -1,18 +1,35 @@
 import CtaBand from '../components/CtaBand'
+import EventsBrowser from '../components/EventsBrowser'
 import Media from '../components/Media'
 import PageHead from '../components/PageHead'
 import Reveal from '../components/Reveal'
 import { events } from '../data/site'
+import { useSettings } from '../hooks/useSettings'
 
 export default function Events() {
+  const { settings } = useSettings()
+
   return (
     <>
       <PageHead
+        image={settings.eventBanner.url}
         title="الفعاليات"
         text="فعاليات وأنشطة تجمع الفرسان والعائلات ومحبي الخيل، في أجواء تجمع بين الرياضة والترفيه."
       />
 
       <section className="section">
+        <div className="container">
+          <Reveal className="section-head section-head--center">
+            <p className="eyebrow">التقويم</p>
+            <h2 className="section-title">
+              مواعيد <span className="accent">الفعاليات</span>
+            </h2>
+          </Reveal>
+          <EventsBrowser />
+        </div>
+      </section>
+
+      <section className="section section--alt">
         <div className="container">
           <Reveal className="section-head section-head--center">
             <p className="eyebrow">أنشطتنا</p>
@@ -41,7 +58,7 @@ export default function Events() {
         </div>
       </section>
 
-      <section className="section section--alt">
+      <section className="section">
         <div className="container split split--reverse">
           <Reveal className="split__text">
             <p className="eyebrow">للأطفال والناشئين</p>
